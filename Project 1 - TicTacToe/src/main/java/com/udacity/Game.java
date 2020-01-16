@@ -93,7 +93,7 @@ public class Game {
     }
 
     /**
-     * Performs the winner chack and displayes a message if game is over
+     * Performs the winner check and displays a message if game is over
      * @return true if game is over to start a new game
      */
     public boolean doChecks() {
@@ -148,12 +148,66 @@ public class Game {
      * @param grid 2D array of characters representing the game board
      * @return String indicating the outcome of the game: "X wins" or "O wins" or "Tie" or "None"
      */
-    public String checkGameWinner(char [][]grid){
+    public String checkGameWinner(char [][]grid) {
         String result = "None";
-        //Student code goes here ...
-        return result;
+        String resultTie = "Tie";
+        String resultO = "O wins";
+        String resultX = "X wins";
+        //Check for win condition (o's and x's) on columns (i)
+        for (int i = 0; i < 3; i++) {
+            int sumO = 0;
+            int sumX = 0;
+            for (int j = 0; j < 3; j++) {
+                if (grid[i][j] == 'o') {
+                    sumO = sumO + 1;
+                } else if (grid[i][j] == 'x') {
+                    sumX = sumX + 1;
+                }
+            }
+            if (sumO == 3) {
+                return resultO;
+            } else if (sumX == 3) {
+                return resultX;
+            }
+        }
+        //Check for win condition (o's and x's) on rows (j)
+        for (int j = 0; j < 3; j++) {
+            int sumO = 0;
+            int sumX = 0;
+            for (int i = 0; i < 3; i++) {
+                if (grid[i][j] == 'o') {
+                    sumO = sumO + 1;
+                } else if (grid[i][j] == 'x') {
+                    sumX = sumX + 1;
+                }
+            }
+            if (sumO == 3) {
+                return resultO;
+            } else if (sumX == 3) {
+                return resultX;
+            }
+        }
+        //Check for win condition on diagonals for o's and x's
+        if (grid [0][0] == 'o' && grid [1][1] == 'o' && grid [2][2] == 'o'){
+            return resultO;
+        } else if (grid [2][0] == 'o' && grid [1][1] == 'o' && grid [0][2] == 'o'){
+            return resultO;
+        } else if (grid [0][0] == 'x' && grid [1][1] == 'x' && grid [2][2] == 'x'){
+            return resultX;
+        } else if (grid [2][0] == 'x' && grid [1][1] == 'x' && grid [0][2] == 'x'){
+            return resultX;
+        }
+        //Check if there are free spots (-) if so the result is None
+        for (int k = 0; k < 3; k++){
+            for(int l = 0; l < 3; l++){
+                if (grid [k][l] == '-'){
+                    return result;
+                }
+            }
+        }
+        //If non of the above applies the result is Tie
+        return resultTie;
     }
-
     /**
      * Main function
      * @param args command line arguments
